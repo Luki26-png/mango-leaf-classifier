@@ -1,5 +1,11 @@
 #dataset
 dataset/
+dataset_segmented/
+resized_dataset/
+augmented_cnn/
+augmented_knn/
+augmented_nb/
+sample/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

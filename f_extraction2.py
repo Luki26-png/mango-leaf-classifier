@@ -5,12 +5,6 @@ import pandas as pd
 from skimage.feature import graycomatrix, graycoprops
 from sklearn.preprocessing import LabelEncoder
 
-# [hsv]: gambar sumber (input HSV image)
-# [0, 1, 2]: channel yang dihitung → H, S, V
-# None: tidak ada mask, artinya seluruh citra dihitung
-# bins = (8, 4, 4): jumlah bin untuk masing-masing channel
-# [0, 180, 0, 256, 0, 256]: rentang nilai untuk H (0–179), S (0–255), dan V (0–255)
-
 def extract_color_histogram(image, bins=(8, 4, 4)):
     #ubah gambar ke ruang warna hsv
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)

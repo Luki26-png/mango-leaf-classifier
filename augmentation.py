@@ -24,11 +24,11 @@ import albumentations as A
 # output_dir = 'augmented_knn'
 
 # --- Konfigurasi untuk Naive Bayes (augmentasi minimal) ---
-# transform = A.Compose([
-#     A.HorizontalFlip(p=0.5),
-#     A.VerticalFlip(p=0.5)
-# ])
-# output_dir = 'augmented_nb'
+transform = A.Compose([
+    A.HorizontalFlip(p=0.5),
+    A.VerticalFlip(p=0.5)
+])
+output_dir = 'augmented_nb'
 
 
 # ==== ATURAN DASAR ====

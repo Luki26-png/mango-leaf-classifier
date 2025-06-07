@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 from sklearn.decomposition import PCA
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import accuracy_score, classification_report
 
 def load_features(csv_file, pca=None, fit_pca=False, n_components=30):
     df = pd.read_csv(csv_file)
@@ -18,34 +18,44 @@ def load_features(csv_file, pca=None, fit_pca=False, n_components=30):
 
     return X, y, pca
 
-#the dir source
+# 📁 Path configuration
 input_dir = "extracted_features/knn"
-# Load label encoder
-le = joblib.load(os.path.join(input_dir,"label_encoder.pkl"))
+output_dir = "model/knn"
+os.makedirs(output_dir, exist_ok=True)
 
-# Load dataset dan fit PCA hanya pada data training
-X_train, y_train, pca = load_features(os.path.join(input_dir,"train_features.csv"), fit_pca=True, n_components=30)
-X_val, y_val, _ = load_features(os.path.join(input_dir,"val_features.csv"), pca=pca)
-X_test, y_test, _ = load_features(os.path.join(input_dir,"test_features.csv"), pca=pca)
+# 📥 Load label encoder
+le = joblib.load(os.path.join(input_dir, "label_encoder.pkl"))
 
-# Latih model KNN
-knn = KNeighborsClassifier(n_neighbors=3)
-knn.fit(X_train, y_train)
+# 📊 Load training and validation features
+X_train, y_train, pca = load_features(os.path.join(input_dir, "train_features.csv"), fit_pca=True, n_components=30)
+X_val, y_val, _ = load_features(os.path.join(input_dir, "val_features.csv"), pca=pca)
 
-# Simpan model dan PCA ke file
-joblib.dump(knn, "model/knn/knn_model.pkl")
-joblib.dump(pca, "model/knn/pca_knn_transform.pkl")
+# 🔍 Hyperparameter tuning (k search)
+best_k = None
+best_acc = 0
+best_model = None
 
-print("✅ Model KNN dan PCA berhasil disimpan.")
+print("\n🔧 Searching for best k using validation set...\n")
+for k in range(1, 10, 2):  # Try odd values of k from 1 to 9
+    model = KNeighborsClassifier(n_neighbors=k)
+    model.fit(X_train, y_train)
+    preds = model.predict(X_val)
+    acc = accuracy_score(y_val, preds)
+    print(f"k = {k} → Validation Accuracy: {acc:.4f}")
 
-# Evaluasi
-def evaluate(name, X, y):
-    preds = knn.predict(X)
-    acc = accuracy_score(y, preds)
-    print(f"\n📊 Evaluasi: {name}")
-    print(f"Akurasi: {acc:.4f}")
-    print(classification_report(y, preds, target_names=le.classes_))
+    if acc > best_acc:
+        best_acc = acc
+        best_k = k
+        best_model = model
 
-evaluate("TRAINING", X_train, y_train)
-evaluate("VALIDATION", X_val, y_val)
-evaluate("TEST", X_test, y_test)
+# ✅ Save the best model and PCA
+joblib.dump(best_model, os.path.join(output_dir, "knn_model.pkl"))
+joblib.dump(pca, os.path.join(output_dir, "pca_knn_transform.pkl"))
+
+print(f"\n✅ Best k = {best_k} with accuracy = {best_acc:.4f}")
+print("📦 Model and PCA transformer saved.")
+
+# 📈 Final Evaluation Report on Validation Set
+val_preds = best_model.predict(X_val)
+print("\n📊 Final Evaluation on Validation Set:")
+print(classification_report(y_val, val_preds, target_names=le.classes_))

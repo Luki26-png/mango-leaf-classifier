@@ -35,21 +35,24 @@ def evaluate_model(name, model, X_test, y_test, label_encoder):
     plt.show()
 
 # Set paths for knn
-test_csv_knn = "extracted_features/knn/test_features.csv"  # shared for both
+test_csv_knn = "extracted_features/knn/test_features.csv" 
 label_encoder_knn = joblib.load("extracted_features/knn/label_encoder.pkl")
 
 # Set paths for nb
 test_csv_nb = "extracted_features/nb/test_features.csv"
 label_encoder_nb = joblib.load("extracted_features/nb/label_encoder.pkl")
 
-# --- Evaluate KNN ---
+# --- load knn model dan test data ---
 knn_model = joblib.load("model/knn/knn_model.pkl")
 knn_pca = joblib.load("model/knn/pca_knn_transform.pkl")
 X_test_knn, y_test_knn = load_features(test_csv_knn, knn_pca)
-evaluate_model("K-Nearest Neighbors", knn_model, X_test_knn, y_test_knn, label_encoder_knn)
 
-# --- Evaluate Naive Bayes ---
+# --- load naive bayes model dan test data ---
 nb_model = joblib.load("model/nb/naive_bayes_model.pkl")
 nb_pca = joblib.load("model/nb/pca_nb_transform.pkl")
 X_test_nb, y_test_nb = load_features(test_csv_nb, nb_pca)
+
+#evalute knn
+evaluate_model("K-Nearest Neighbors", knn_model, X_test_knn, y_test_knn, label_encoder_knn)
+#evaluate naive bayes
 evaluate_model("Naive Bayes", nb_model, X_test_nb, y_test_nb, label_encoder_nb)

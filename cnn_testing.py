@@ -61,19 +61,3 @@ plt.title('Confusion Matrix')
 plt.xlabel('Predicted')
 plt.ylabel('True')
 plt.show()
-
-# 6. Visual Predictions (9 samples)
-plt.figure(figsize=(12, 9))
-for images, labels in test_ds.take(1):  # Take first batch
-    for i in range(min(9, len(images))):  # Show max 9 images
-        plt.subplot(3, 3, i+1)
-        img = images[i].numpy().astype('uint8')
-        true_idx = labels[i].numpy()
-        pred_idx = np.argmax(model.predict(tf.expand_dims(images[i], 0), verbose=0))
-        
-        plt.imshow(img)
-        plt.title(f"True: {class_names[true_idx]}\nPred: {class_names[pred_idx]}", 
-                 color='green' if true_idx == pred_idx else 'red')
-        plt.axis('off')
-plt.tight_layout()
-plt.show()

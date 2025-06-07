@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.decomposition import PCA
 
 # === KONFIGURASI ===
-input_csv = "ekstraksi_fitur.csv"     # File hasil ekstraksi fitur
+input_csv = "extracted_features/nb/val_features.csv"     # File hasil ekstraksi fitur
 output_csv = "fitur_pca.csv"          # File hasil setelah PCA
 n_components = 15                     # Jumlah fitur setelah reduksi
 

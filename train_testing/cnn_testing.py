@@ -6,10 +6,10 @@ import seaborn as sns
 import os
 
 # 1. Load Model
-model = tf.keras.models.load_model('mango_leaf_classifier.keras')
+model = tf.keras.models.load_model('model/cnn/mango_leaf_classifier.keras')
 
 # 2. Prepare Test Data
-test_path = 'split_cnn_dataset/test'
+test_path = 'augmented_cnn/test'
 IMG_SIZE = (128, 128)
 BATCH_SIZE = 32
 

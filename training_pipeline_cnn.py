@@ -1,8 +1,8 @@
 import tensorflow as tf
 
 # Data Loading
-train_path = 'split_cnn_dataset/train'
-val_path = 'split_cnn_dataset/val'
+train_path = 'augmented_cnn/train'
+val_path = 'augmented_cnn/val'
 
 IMG_SIZE = (128, 128)
 BATCH_SIZE = 32
@@ -96,4 +96,4 @@ history = model.fit(
 )
 
 # Save model
-model.save('mango_leaf_classifier.keras')
+model.save('model/cnn/mango_leaf_classifier.keras')

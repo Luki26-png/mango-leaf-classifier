@@ -2,8 +2,8 @@ import os
 import shutil
 import random
 
-source_dir = 'augmented_nb'
-target_dir = 'split_nb_dataset'
+source_dir = 'resized_dataset'
+target_dir = 'split_dataset'
 train_ratio = 0.7  # 70% train
 val_ratio = 0.15   # 15% validation
 test_ratio = 0.15  # 15% test

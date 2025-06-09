@@ -30,7 +30,6 @@ le = joblib.load(os.path.join(input_dir, "label_encoder.pkl"))
 
 # 📊 Load training and validation datasets
 X_train, y_train, pca = load_features(os.path.join(input_dir, "train_features.csv"), fit_pca=True, n_components=15)
-X_val, y_val, _ = load_features(os.path.join(input_dir, "val_features.csv"), pca=pca)
 
 # 🧠 Train Naive Bayes model
 nb_model = GaussianNB()
@@ -51,4 +50,3 @@ def evaluate(name, X, y):
     print(classification_report(y, preds, target_names=le.classes_))
 
 evaluate("TRAINING", X_train, y_train)
-evaluate("VALIDATION", X_val, y_val)

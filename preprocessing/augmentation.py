@@ -5,15 +5,15 @@ import albumentations as A
 # ==== PILIH SALAH SATU KONFIGURASI BERIKUT DENGAN MENGHAPUS KOMENTARNYA ====
 
 # --- Konfigurasi untuk CNN (augmentasi agresif) ---
-transform = A.Compose([
-    A.Rotate(limit=30),
-    A.HorizontalFlip(p=0.5),
-    A.VerticalFlip(p=0.5),
-    A.RandomBrightnessContrast(p=0.5),
-    A.RandomScale(scale_limit=0.1, p=0.5),
-    A.ShiftScaleRotate(shift_limit=0.05, scale_limit=0.05, rotate_limit=15, p=0.5)
-])
-output_dir = 'augmented_cnn'
+# transform = A.Compose([
+#     A.Rotate(limit=30),
+#     A.HorizontalFlip(p=0.5),
+#     A.VerticalFlip(p=0.5),
+#     A.RandomBrightnessContrast(p=0.5),
+#     A.RandomScale(scale_limit=0.1, p=0.5),
+#     A.ShiftScaleRotate(shift_limit=0.05, scale_limit=0.05, rotate_limit=15, p=0.5)
+# ])
+# output_dir = 'augmented_cnn'
 
 # --- Konfigurasi untuk KNN (augmentasi ringan) ---
 # transform = A.Compose([
@@ -24,14 +24,14 @@ output_dir = 'augmented_cnn'
 # output_dir = 'augmented_knn'
 
 # --- Konfigurasi untuk Naive Bayes (augmentasi minimal) ---
-# transform = A.Compose([
-#     A.HorizontalFlip(p=0.5),
-#     A.VerticalFlip(p=0.5)
-# ])
-# output_dir = 'augmented_nb'
+transform = A.Compose([
+    A.HorizontalFlip(p=0.5),
+    A.VerticalFlip(p=0.5)
+])
+output_dir = 'augmented_nb'
 
 # ==== ATURAN DASAR ====
-input_dir = 'split_dataset'     # input root folder (with train/val/test)
+input_dir = 'augmented_nb'     # input root folder (with train/val/test)
 augment_per_image = 5           # jumlah augmentasi per gambar
 
 # Mulai proses augmentasi

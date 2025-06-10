@@ -66,8 +66,8 @@ def extract_features(dataset_dir, output_csv, le=None, save_encoder=False):
     return le
 
 #output directory
-output_dir = "extracted_features/knn"
+output_dir = "extracted_features/nb"
 # Jalankan untuk semua set
-le = extract_features("augmented_knn/train", os.path.join(output_dir, "train_features.csv"), save_encoder=True)
-extract_features("augmented_knn/val", os.path.join(output_dir,"val_features.csv"), le=le)
-extract_features("augmented_knn/test", os.path.join(output_dir,"test_features.csv"), le=le)
+le = extract_features("augmented_nb/train", os.path.join(output_dir, "train_features.csv"), save_encoder=True)
+#extract_features("augmented_nb/val", os.path.join(output_dir,"val_features.csv"), le=le)
+extract_features("augmented_nb/test", os.path.join(output_dir,"test_features.csv"), le=le)

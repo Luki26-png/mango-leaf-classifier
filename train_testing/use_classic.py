@@ -83,3 +83,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     predict_image(args.image_path, model_type=args.model)
+
+#python predict_single_image.py images/sample.jpg --model knn
